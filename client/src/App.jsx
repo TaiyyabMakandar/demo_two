@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import DrawerAppBar from './components/Navbar'
+import Home from './pages/Home'
+import Footer from './components/Footer'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import DesignAndBuild from './pages/DesignAndBuild'
+import Registration from './pages/Register'
+import Contact from './pages/Contact'
+import Login from './pages/Login'
+import { Logout } from './pages/logout'
+import { AdminUsers } from './pages/Admin-user'
+import { AdminContacts } from './pages/Admin-Contacts'
+import { AdminLayout } from './components/layouts/Admin-Layout'
+import './App.css';
+import { AdminUpdate } from './pages/Admin-Update'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BrowserRouter>
+        < DrawerAppBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/designandbuild" element={<DesignAndBuild />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="*" element={<Error />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="contacts" element={<AdminContacts />} />
+            <Route path="contacts" element={<AdminContacts />} />
+            <Route path="users/:id/edit" element={<AdminUpdate />} />
+          </Route>
+
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </>
   )
 }
 
 export default App
+
